@@ -1,1 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GTAFORUM — Закрыт</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500;600&display=swap');
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green: #7ed321;
+      --bg: #0d0f0d;
+      --bg2: #141614;
+      --bg3: #1a1d1a;
+      --border: rgba(255,255,255,.07);
+      --text: #e8ede8;
+      --text2: #9aa09a;
+      --text3: #5a605a;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    /* Фоновая сетка */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(126,211,33,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(126,211,33,.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      width: 100%;
+    }
+
+    /* Логотип */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--green);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 20px;
+      color: #000;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: .5px;
+    }
+
+    .logo-text span { color: var(--green); }
+
+    /* Главный блок */
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px;
+      margin-bottom: 20px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(224,82,82,.1);
+      border: 1px solid rgba(224,82,82,.3);
+      color: #e05252;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #e05252;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .3; }
+    }
+
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      letter-spacing: -.5px;
+    }
+
+    h1 .dim { color: var(--text3); }
+
+    .date {
+      font-size: 14px;
+      color: var(--text3);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .date::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--text3);
+    }
+
+    .desc {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text2);
+      margin-bottom: 40px;
+    }
+
+    /* Причины */
+    .reasons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .reason {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .reason-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .reason-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .reason-text {
+      font-size: 13px;
+      color: var(--text3);
+      line-height: 1.6;
+    }
+
+    /* Статистика */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .stat {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    /* Прощальное слово */
+    .farewell {
+      border-left: 3px solid var(--green);
+      padding: 16px 20px;
+      background: rgba(126,211,33,.04);
+      border-radius: 0 8px 8px 0;
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    /* Футер */
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text3);
+      line-height: 1.8;
+    }
+
+    .footer a {
+      color: var(--text3);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color .15s;
+    }
+
+    .footer a:hover { color: var(--text2); }
+
+    @media (max-width: 520px) {
+      .card { padding: 28px 20px; }
+      .stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .stat-num { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="logo">
+      <div class="logo-icon">GF</div>
+      <div class="logo-text">GTA<span>FORUM</span></div>
+    </div>
+
+    <div class="card">
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        Проект закрыт
+      </div>
+
+      <h1>Форум прекратил<br><span class="dim">свою работу</span></h1>
+
+      <div class="date">13 апреля 2026 года</div>
+
+      <p class="desc">
+        После нескольких месяцев работы мы приняли решение закрыть GTAFORUM.
+        Это было непростое решение, но обстоятельства сложились именно так.
+        Спасибо каждому, кто был с нами.
+      </p>
+
+      <div class="reasons">
+        <div class="reason">
+          <div class="reason-icon">💸</div>
+          <div>
+            <div class="reason-title">Отсутствие финансирования</div>
+            <div class="reason-text">Содержание сервера, домена и инфраструктуры требует постоянных вложений. Монетизация не окупала расходы, а вкладывать личные средства без перспектив роста стало нецелесообразным.</div>
+          </div>
+        </div>
+        <div class="reason">
+          <div class="reason-icon">📉</div>
+          <div>
+            <div class="reason-title">Низкая активность</div>
+            <div class="reason-text">Аудитория не набрала критическую массу для самоподдерживающегося сообщества. Без достаточного количества активных участников форум не мог развиваться органически.</div>
+          </div>
+        </div>
+        <div class="reason">
+          <div class="reason-icon">🔋</div>
+          <div>
+            <div class="reason-title">Потеря интереса</div>
+            <div class="reason-text">Поддержание и развитие проекта требует времени и мотивации. Со временем энтузиазм угас, а без него качественно развивать платформу невозможно.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num">2026</div>
+          <div class="stat-label">Год запуска</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">~3</div>
+          <div class="stat-label">Месяца работы</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">GTA</div>
+          <div class="stat-label">Тематика</div>
+        </div>
+      </div>
+
+      <div class="farewell">
+        Спасибо всем, кто регистрировался, писал темы, участвовал в обсуждениях
+        и помогал развивать сообщество. Вы делали этот проект живым.
+        Возможно, когда-нибудь мы вернёмся в другом формате.
+      </div>
+    </div>
+
+    <div class="footer">
+      GTAFORUM — Фан-сообщество. Не связано с Rockstar Games.<br>
+      © 2026 · Все права защищены
+    </div>
+
+  </div>
+</body>
+</html>
 
